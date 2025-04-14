@@ -1,26 +1,22 @@
 from flask import Flask, render_template, request
+from datetime import datetime
 
 app = Flask(__name__)
 
-@app.route("/SimpleApp/", methods=["GET", "POST"])
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    er = None
-    if request.method == "POST":
-        try:
-            likes = int(request.form["likes"])
-            comments = int(request.form["comments"])
-            shares = int(request.form["shares"])
-            followers = int(request.form["followers"])
+    days = None
+    birthdate_str = None
 
-            if followers == 0:
-                return "jumlah followers tidak boleh 0!"
-            
-            er = ((likes + comments + shares) / followers) * 100
+    if request.method == 'POST':
+        birthdate_str = request.form.get('birthdate')
+        if birthdate_str:
+            birthdate = datetime.strptime(birthdate_str, '%Y-%m-%d')
+            today = datetime.today()
+            delta = today - birthdate
+            days = delta.days
 
-        except ValueError:
-            return "Input tidak valid! Masukkan angka yang benar."
-        
-    return render_template("index.html", er=round(er, 2) if er is not None else None)
+    return render_template('index.html', days=days, birthdate=birthdate_str)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)

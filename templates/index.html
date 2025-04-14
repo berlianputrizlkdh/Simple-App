@@ -1,33 +1,18 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Engagement Rate</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Hitung Hari Ulang Tahun</title>
 </head>
 <body>
-    <div class="container">
-        <h2>Kalkulator Engagement Rate</h2>
-        <form method="POST">
-            <label>Jumlah Likes:</label>
-            <input type="number" name="likes" required>
+    <h1>Hitung Total Hari Sejak Kamu Lahir 🎂</h1>
+    <form method="POST">
+        <label for="birthdate">Masukkan Tanggal Lahir:</label><br>
+        <input type="date" name="birthdate" required><br><br>
+        <button type="submit">Hitung</button>
+    </form>
 
-            <label>Jumlah Comments:</label>
-            <input type="number" name="comments" required>
-
-            <label>Jumlah Shares:</label>
-            <input type="number" name="shares" required>
-
-            <label>Total Followers:</label>
-            <input type="number" name="followers" required>
-
-            <button type="submit">Hitung</button>
-        </form>
-
-        {% if er is defined and er is not none %}
-            <h3>Engagement Rate: {{ er }}%</h3>
-        {% endif %}
-    </div>
+    {% if days is not none %}
+        <h2>Kamu sudah hidup selama <strong>{{ days }}</strong> hari sejak {{ birthdate }}</h2>
+    {% endif %}
 </body>
 </html>
